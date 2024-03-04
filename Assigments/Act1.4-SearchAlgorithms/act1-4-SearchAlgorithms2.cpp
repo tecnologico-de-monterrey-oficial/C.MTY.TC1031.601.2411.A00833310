@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+using namespace std;
+
 
 // Función para encontrar el carácter único y contar comparaciones en búsqueda secuencial
 std::pair<char, int> findUniqueSequential(const std::string& str) {
