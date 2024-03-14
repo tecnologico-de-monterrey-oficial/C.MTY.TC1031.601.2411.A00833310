@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <chrono>
+#include <algorithm>
 
 using namespace std;
 
@@ -284,6 +285,30 @@ void quickSort(vector<T> &arr, int low, int high, int &swaps, int &comparisons) 
     }
 }
 
+//Counting Sort
+template <class T>
+void countingSort(vector<T> &list) {
+    // Encontrar el valor máximo en la lista
+    T maxVal = *max_element(list.begin(), list.end());
+
+    // Crear un arreglo de conteo con tamaño igual al valor máximo encontrado
+    vector<int> count(maxVal + 1, 0);
+
+    // Contar la frecuencia de cada elemento en la lista
+    for (T element : list) {
+        count[element]++;
+    }
+
+    // Recrear la lista en orden ascendente utilizando el arreglo de conteo
+    int index = 0;
+    for (int i = 0; i <= maxVal; i++) {
+        while (count[i] > 0) {
+            list[index++] = i;
+            count[i]--;
+        }
+    }
+}
+
 
 int main() {
     // Semilla para generar números aleatorios
@@ -390,6 +415,17 @@ int main() {
     printList(list);
     cout << "Comparaciones: " << comparisons << " intercambios: " << swaps << endl;
 
+    // Counting Sort
+    createList(list, 7);
+    cout << "Counting Sort" << endl;
+    cout << "Lista inicial" << endl;
+    printList(list);
+    startTime(begin);
+    countingSort(list);
+    getTime(begin, end);
+    cout << "Lista ordenada" << endl;
+    printList(list);
+    cout << endl;
 
     return 0;
 }
